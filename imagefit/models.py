@@ -1,12 +1,15 @@
 from __future__ import division
 from imagefit.conf import settings
 from PIL import Image as PilImage
+import sys
 
 import mimetypes
-try:
-    import StringIO
-except ImportError:
-    from io import StringIO
+
+if sys.version_info.major == 3:
+    from io import BytesIO as IOClass
+else:
+    import StringIO.StringIO as IOClass
+
 import re
 import os
 
@@ -72,7 +75,7 @@ class Image(object):
         if self.is_cached:
             return self.cache.get(self.cached_name)
         else:
-            image_str = StringIO.StringIO()
+            image_str = IOClass()
             # not much other supports than png, yet works
             self.pil.save(image_str, 'png')
             return image_str.getvalue()
@@ -82,7 +85,7 @@ class Image(object):
         Save the image to the cache if provided and not cached yet.
         """
         if self.cache and not self.is_cached:
-            image_str = StringIO.StringIO()
+            image_str = IOClass()
             # not much other supports than png, yet works
             self.pil.save(image_str, 'png')
             self.cache.set(self.cached_name, image_str.getvalue())
