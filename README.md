@@ -64,7 +64,7 @@ pip install django-imagefit
 or the bleeding edge version
 
 ```
-pip install -e git+https://github.com/vinyll/django-imagefit.git#egg=django-imagefit
+pip install -e git+https://github.com/jetpackjoust/django-imagefit.git#egg=django-imagefit
 ```
 
 #### update INSTALLED_APPS
